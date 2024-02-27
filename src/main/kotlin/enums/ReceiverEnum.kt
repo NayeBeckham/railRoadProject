@@ -1,7 +1,7 @@
 package enums
 
-enum class ReceiverEnum(receiver: String) {
-    FEDEX("FedEx"),
-    UPS("UPS"),
-    OLD_DOMINION("Old Dominion"),
+enum class ReceiverEnum(val receiverName: String, val priority: Int) {
+    FEDEX("FedEx", 2),
+    UPS("UPS", 1),
+    OLD_DOMINION("Old Dominion", 3),
 }

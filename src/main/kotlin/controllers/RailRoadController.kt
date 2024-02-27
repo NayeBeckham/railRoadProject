@@ -2,10 +2,7 @@ package controllers
 
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.MediaType
-import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Get
-import io.micronaut.http.annotation.Produces
-import io.micronaut.http.annotation.Status
+import io.micronaut.http.annotation.*
 import io.micronaut.serde.annotation.Serdeable
 import models.RailRoadModel
 import models.RailRoadModelView
@@ -25,6 +22,12 @@ class RailRoadController(
     @Produces(MediaType.TEXT_JSON)
     fun getSortedRoad(): List<RailRoadModelView> {
     return railRoadService.getRailsRoadOrder();
+    }
+
+    @Post("/createRailOp")
+    @Status(HttpStatus.OK)
+    fun createRailOperation(@Body railList: List<RailRoadModelView>): List<RailRoadModelView> {
+        return railRoadService.createRailsRoad(railList);
     }
 
 }

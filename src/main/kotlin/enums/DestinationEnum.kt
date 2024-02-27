@@ -1,8 +1,8 @@
 package enums
 
-enum class DestinationEnum(destination: String) {
-    HOUSTON("Houston"),
-    CHICAGO("Chicago"),
-    LA("LA"),
+enum class DestinationEnum(val cityName: String, val priority: Int) {
+    HOUSTON("Houston", 1),
+    CHICAGO("Chicago", 2),
+    LA("LA", 3),
 
 }
