@@ -1,0 +1,13 @@
+{
+  "TableName": "Receiver",
+  "KeySchema": [
+    { "AttributeName": "Id", "KeyType": "HASH" },
+    { "AttributeName": "Receiver", "KeyType": "RANGE" },
+    { "AttributeName": "Priority", "KeyType": "RANGE" }
+  ],
+  "AttributeDefinitions": [
+    { "AttributeName": "Id", "AttributeType": "N" },
+    { "AttributeName": "Receiver", "AttributeType": "S" },
+    { "AttributeName": "Priority", "AttributeType": "N" }
+  ]
+}

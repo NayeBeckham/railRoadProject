@@ -1,0 +1,11 @@
+{
+  "TableName": "Car",
+  "KeySchema": [
+    { "AttributeName": "Id", "KeyType": "HASH" },
+    { "AttributeName": "Name", "KeyType": "RANGE" }
+  ],
+  "AttributeDefinitions": [
+    { "AttributeName": "Id", "AttributeType": "S" },
+    { "AttributeName": "Name", "AttributeType": "S" }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "TableName": "Classification",
+  "KeySchema": [
+    { "AttributeName": "Id", "KeyType": "HASH" },
+    { "AttributeName": "CityName", "KeyType": "RANGE" },
+    { "AttributeName": "Priority", "KeyType": "RANGE" }
+  ],
+  "AttributeDefinitions": [
+    { "AttributeName": "Id", "AttributeType": "N" },
+    { "AttributeName": "CityName", "AttributeType": "S" },
+    { "AttributeName": "Priority", "AttributeType": "N" }
+  ] 
+}
