@@ -1,0 +1,4 @@
+aws:
+  dynamodb:
+    endpoint: http://localhost:9001
+    region: eu-west-1

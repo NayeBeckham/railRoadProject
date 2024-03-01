@@ -31,7 +31,7 @@ class RailRoadService {
                 railsInput.add(
                     RailRoadModel(
                         rail.nameOfCar,
-                        destination?.let { DestinationModel(it) },
+                        destination?.let { DestinationModel("", it) },
                         receiver?.let { ReceiverModel(it) }
                     )
                 )
