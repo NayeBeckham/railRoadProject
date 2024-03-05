@@ -1,12 +1,12 @@
 package models
 
-import enums.DestinationEnum
 import io.micronaut.core.annotation.Introspected
 import io.micronaut.serde.annotation.Serdeable
+import org.jetbrains.annotations.NotNull
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbAttribute
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean
 import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey
-import software.amazon.awssdk.services.dynamodb.model.AttributeValue
+import java.util.UUID
 
 @Serdeable.Serializable
 @Serdeable.Deserializable
@@ -15,10 +15,15 @@ import software.amazon.awssdk.services.dynamodb.model.AttributeValue
 data class DestinationModel(
 
     @get:DynamoDbPartitionKey
-    val id: String?,
+    val id: UUID? = UUID.randomUUID(),
 
     @get:DynamoDbAttribute(value = "cityName")
-    val city: DestinationEnum
+    @NotNull
+    val city: String,
+
+    @get:DynamoDbAttribute(value = "priority")
+    @NotNull
+    val priority: Int= -1
 )
 
 

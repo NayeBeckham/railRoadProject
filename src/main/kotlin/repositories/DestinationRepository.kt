@@ -1,6 +1,5 @@
 package repositories
 
-import enums.DestinationEnum
 import jakarta.inject.Singleton
 import models.DestinationModel
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient
@@ -9,6 +8,7 @@ import software.amazon.awssdk.services.dynamodb.model.DeleteItemRequest
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest
 import software.amazon.awssdk.services.dynamodb.model.ScanRequest
 import software.amazon.awssdk.services.dynamodb.model.UpdateItemRequest
+import java.util.*
 
 @Singleton
 class DestinationRepository(private val dynamoDbClient: DynamoDbClient) {
@@ -20,14 +20,12 @@ class DestinationRepository(private val dynamoDbClient: DynamoDbClient) {
             .tableName(_tableName)
             .item(
                 mapOf(
-                    "id" to AttributeValue.builder().s(destination.id).build(),
-                    "cityName" to AttributeValue.builder().s(destination.city.cityName).build(),
-                    "priority" to AttributeValue.builder().n(destination.city.priority.toString()).build()
+                    "id" to AttributeValue.builder().s(destination.id.toString()).build(),
+                    "cityName" to AttributeValue.builder().s(destination.city).build(),
+                    "priority" to AttributeValue.builder().n(destination.priority.toString()).build()
                 )
             )
             .build())
-
-        //dynamoDbClient.close()
     }
 
     fun getDestinations(): List<DestinationModel> {
@@ -36,11 +34,23 @@ class DestinationRepository(private val dynamoDbClient: DynamoDbClient) {
         val response = dynamoDbClient.scan(scanRequest)
         val items = response.items()
 
+//        fun mapItemsToDestination(destination: Map<String, AttributeValue>) {
+//            val newDestination = DestinationModel(id = UUID.fromString(destination["id"]!!.s()),
+//                city = destination["cityName"]!!.s(),
+//                priority = destination["priority"]!!.n().toInt())
+//
+//            println(newDestination)
+//        }
+//
+//        val itemsToDestionation = items.map {  mapItemsToDestination(it) }
+
+
         return items.map {
             destination ->
             DestinationModel(
-                city = DestinationEnum.entries.find{ it.cityName == destination["cityName"]?.s() }!!,
-                id = destination["id"]?.s(),
+                id = UUID.fromString(destination["id"]!!.s()),
+                city = destination["cityName"]!!.s(),
+                priority = destination["priority"]!!.n().toInt(),
             )
         }
     }
@@ -57,7 +67,7 @@ class DestinationRepository(private val dynamoDbClient: DynamoDbClient) {
                 ).updateExpression("SET priority = :priority")
                 .expressionAttributeValues(
                     mapOf(
-                        ":priority" to AttributeValue.builder().n(priority).build()
+                        ":priority" to AttributeValue.builder().s(priority).build()
                     )
                 )
                 .build()
@@ -76,7 +86,5 @@ class DestinationRepository(private val dynamoDbClient: DynamoDbClient) {
                 )
                 .build()
         )
-
-        //dynamoDbClient.close()
     }
 }

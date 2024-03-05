@@ -42,5 +42,5 @@ create_destination_table() {
 
 
 #create_cars_table
-create_receiver_table
-#create_destination_table
+#create_receiver_table
+create_destination_table

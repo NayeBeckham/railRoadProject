@@ -4,6 +4,7 @@ import enums.DestinationEnum
 import enums.ReceiverEnum
 import jakarta.inject.Singleton
 import models.*
+import java.util.*
 
 @Singleton
 class RailRoadService {
@@ -14,10 +15,10 @@ class RailRoadService {
     }
 
     fun getRailsRoadOrder(): List<RailRoadModelView> {
-        var railRoadSortedList = railsInput.sortedWith(compareBy({it.destination?.city?.priority}, {it.receiver?.receiver?.priority}))
+        var railRoadSortedList = railsInput.sortedWith(compareBy({it.destination?.priority}, {it.receiver?.priority}))
         var railsRoadFinalList = mutableListOf<RailRoadModelView>();
         for(railRoad in railRoadSortedList){
-            railsRoadFinalList.add(RailRoadModelView(railRoad.destination?.city?.priority, railRoad.nameOfCar, railRoad.destination?.city?.cityName, railRoad.receiver?.receiver?.receiverName))
+            railsRoadFinalList.add(RailRoadModelView(railRoad.destination?.priority, railRoad.nameOfCar, railRoad.destination?.city, railRoad.receiver?.receiver))
         }
 
         return railsRoadFinalList;
@@ -31,8 +32,8 @@ class RailRoadService {
                 railsInput.add(
                     RailRoadModel(
                         rail.nameOfCar,
-                        destination?.let { DestinationModel("", it) },
-                        receiver?.let { ReceiverModel(it) }
+                        destination?.let { DestinationModel(UUID.randomUUID(), it.cityName, it.priority) },
+                        receiver?.let { ReceiverModel(UUID.randomUUID(), it.receiverName, it.priority) }
                     )
                 )
             }
