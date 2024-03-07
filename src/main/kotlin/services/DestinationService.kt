@@ -5,14 +5,14 @@ import models.DestinationModel
 import repositories.DestinationRepository
 
 @Singleton
-class DestinationService(
+open class DestinationService(
     private val destinationRepository: DestinationRepository) {
 
     fun createDestination(destination: DestinationModel) {
         return destinationRepository.createDestination(destination);
     }
 
-    fun getDestinations(): List<DestinationModel> {
+    open fun getDestinations(): List<DestinationModel> {
         return destinationRepository.getDestinations();
     }
 
