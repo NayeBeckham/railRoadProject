@@ -8,7 +8,7 @@ import repositories.DestinationRepository
 open class DestinationService(
     private val destinationRepository: DestinationRepository) {
 
-    fun createDestination(destination: DestinationModel) {
+    open fun createDestination(destination: DestinationModel) {
         return destinationRepository.createDestination(destination);
     }
 
