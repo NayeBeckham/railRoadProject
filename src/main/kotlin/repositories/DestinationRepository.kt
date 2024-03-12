@@ -67,7 +67,7 @@ class DestinationRepository(private val dynamoDbClient: DynamoDbClient) {
                 ).updateExpression("SET priority = :priority")
                 .expressionAttributeValues(
                     mapOf(
-                        ":priority" to AttributeValue.builder().s(priority).build()
+                        ":priority" to AttributeValue.builder().n(priority).build()
                     )
                 )
                 .build()
